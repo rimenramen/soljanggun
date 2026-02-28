@@ -26,17 +26,6 @@
     padding-left: 10px;
   }
 
- .section-total {
-  font-size: 12px;
-  font-weight: 400;
-  color: #aaa;
-  background: #1e1e1e;
-  border: 1px solid #333;
-  border-radius: 4px;
-  padding: 3px 9px;
-  font-family: notosanskr;
-}
-
   .section-header:first-child {
     margin-top: 0;
   }
@@ -207,10 +196,6 @@ function getInitials(name) {
   return name.trim().split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase();
 }
 
- function parseDuration(str) { /* "M:SS" or "H:MM:SS" → total seconds */ }
-function formatDuration(totalSeconds) { /* seconds → "h:mm:ss" */ }
-function sectionTotalDuration(videos) { /* sum all durations in a section */ }
-
 function buildCard(video, delay) {
   return `
     <div class="card" style="animation-delay:${delay}s">
@@ -243,10 +228,6 @@ sections.forEach(section => {
   header.className = 'section-header';
   header.textContent = section.heading;
   app.appendChild(header);
- header.innerHTML = `
-  <span>${section.heading}</span>
-  <span class="section-total">${sectionTotalDuration(section.videos)}</span>
-`;
 
   const grid = document.createElement('div');
   grid.className = 'grid';
@@ -258,5 +239,6 @@ sections.forEach(section => {
 });
 </script>
 </html>
+
 
 
