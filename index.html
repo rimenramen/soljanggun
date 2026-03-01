@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Suggested Videos</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<title>algorithm</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -24,6 +24,14 @@
     letter-spacing: 0.01em;
     border-left: 3px solid #ff0000;
     padding-left: 10px;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .section-meta {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13px;
+    color: #aaa;
+    font-weight: 400;
   }
 
   .section-header:first-child {
@@ -154,11 +162,45 @@
 <body id="app"></body>
 
 <script>
+// Helper functions to calculate duration
+function parseDuration(durationStr) {
+  const parts = durationStr.split(':').map(Number);
+  if (parts.length === 2) {
+    return parts[0] * 60 + parts[1]; // mm:ss to seconds
+  } else if (parts.length === 3) {
+    return parts[0] * 3600 + parts[1] * 60 + parts[2]; // hh:mm:ss to seconds
+  }
+  return 0;
+}
+
+function formatDuration(seconds) {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const secs = seconds % 60;
+  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+}
+
+function calculateSectionStats(videos) {
+  let totalSeconds = 0;
+  videos.forEach(video => {
+    totalSeconds += parseDuration(video.duration);
+  });
+  return {
+    count: videos.length,
+    duration: formatDuration(totalSeconds)
+  };
+}
+
 // Real YouTube video IDs with accurate metadata
 const sections = [
   {
-    heading: "WEEK 9 (2026)",
-    videos: [      
+    heading: "WEEK 9 (2026) &nbsp; [رمضان, ramadan 1447]",
+    videos: [    
+        
+      { id: "ZNiY1g7OH8Q", title: "[이즈나의 방] 3n만 원짜리 갈비찜🍲 잘 먹겠습니다🥹 한 그릇 = 한입 먹짱즈나의 세뱃돈 FLEX 설 음식 쟁탈전🍊💸 | Ep.2 설 음식 쟁탈전", date: "2026. 2. 18 (week 8)", duration: "25:18"},      
+      { id: "P8FDMruoUdg", title: "[SUB] 칼군무 그룹? ‘하루’면 충분한데요 🤭 | Ep.43 Hearts2Hearts | 연습실 바다쌤", date: "2026. 2. 26", duration: "18:59"},
+      { id: "00reS35dBnA", title: "[ENG] 구운 페타 치즈 파스타 나가신다 두쫀쿠는 길을 비켜라👑 챌린지 욕구 뿜뿜하는 파스타 레시피의 등장 | 안성재거덩요👨‍🍳", date: "2026. 2. 25", duration: "36:13"},     
+      { id: "XlxzbmAVS2s", title: "[SUB] EP.57-2 Hearts2Hearts | 나 안.긁.혔.어.(🙀) 귀가 흔들리지만 제 의지가 아닙니다 | 돌박이일 하츠투하츠 겨울방학 스페셜 투어 2탄 [4K]", date: "2026. 2. 28", duration: "1:00:25"},     
       { id: "Ie8XeanwG6g", title: "(ENG) 가챠 뽑자 난 다 궁금해🩵 민서 동갑 친구 하츠투하츠(Hearts2Hearts) 에이나X이안이랑 데이트했습니다 | 할명수 ep.277", date: "2026. 2. 27", duration: "17:56"},
       { id: "jqEh_H1V1Rw", title: "IVE 아이브 MV 'BANG BANG' - Behind The Scenes", date: "2026. 2. 22 (week 8)", duration: "33:35"},
       { id: "NwCl6v5EUJ0", title: "[EN] 삼촌 자신 있어? 나 아이브야ㅣEP.06 아이브 이서ㅣ트루만쇼", date: "2026. 2. 26", duration: "27:25"},
@@ -173,20 +215,18 @@ const sections = [
     ]
   },
   {
-    heading: "WEEK 8 (2026)",
+    heading: "WEEK 8 (2026) &nbsp; [رمضان, ramadan 1447]",
     videos: [
       { id: "jfZQtuXTJ4E", title: "[SUB] EP.57-1 Hearts2Hearts | 랜플댄? 질 수 없지! 하투하배 4:4 댄스 배틀~(˘▾˘)~ | 돌박이일 하츠투하츠 겨울방학 스페셜 투어 1탄 [4K]", date: "2026. 2. 22", duration: "45:30"},
+      { id: "e9B58_zd3oI", title: "장롱에서 도로까지는 아닙니다만 l FIM TRIP - EP.1", date: "2026. 2. 18", duration: "26:29"},
     ]
   },
   {
     heading: "WATCH LIST",
     videos: [
-      { id: "XlxzbmAVS2s", title: "[SUB] EP.57-2 Hearts2Hearts | 나 안.긁.혔.어.(🙀) 귀가 흔들리지만 제 의지가 아닙니다 | 돌박이일 하츠투하츠 겨울방학 스페셜 투어 2탄 [4K]", date: "2026. 2. 28", duration: "1:00:25"},
       { id: "IDBESJLmezM", title: "[우쥬레코드] IVE 안유진 with 윤하 | Perfect Night, 미안해 미워해 사랑해, 사건의 지평선, BLACKHOLE | WOULD YOU RECORD (SUB)", date: "2026. 2. 27", duration: "32:47"},
-      { id: "00reS35dBnA", title: "[ENG] 구운 페타 치즈 파스타 나가신다 두쫀쿠는 길을 비켜라👑 챌린지 욕구 뿜뿜하는 파스타 레시피의 등장 | 안성재거덩요👨‍🍳", date: "2026. 2. 25", duration: "36:13"},
-      { id: "ZNiY1g7OH8Q", title: "[이즈나의 방] 3n만 원짜리 갈비찜🍲 잘 먹겠습니다🥹 한 그릇 = 한입 먹짱즈나의 세뱃돈 FLEX 설 음식 쟁탈전🍊💸 | Ep.2 설 음식 쟁탈전", date: "2026. 2. 18", duration: "25:18"},
       { id: "YIJrFUeUH84", title: "우리 캠핑 잘할 수 있을까!? l FIM TRIP - EP.2", date: "2026. 2. 25", duration: "28:53"},
-      { id: "9rfbKwKog4E", title: "[ASMR] What’s In DAYEON’s Bag?👜 | 향수, 파우치, 렌즈, 스퀴시 | 다연 Talking ASMR", date: "2026. 2. 24", duration: "26:50"},
+      { id: "-SuUEoYEDVw", title: "Hearts2Hearts 하츠투하츠 ‘RUDE!’ Dance Practice BH2ND", date: "2026. 2. 27", duration: "29:08"},
      
     ]
   },
@@ -226,7 +266,8 @@ let totalDelay = 0;
 sections.forEach(section => {
   const header = document.createElement('div');
   header.className = 'section-header';
-  header.textContent = section.heading;
+  const stats = calculateSectionStats(section.videos);
+  header.innerHTML = `${section.heading}<span class="section-meta"> &nbsp; ${stats.count}, ${stats.duration}</span>`;
   app.appendChild(header);
 
   const grid = document.createElement('div');
@@ -239,6 +280,7 @@ sections.forEach(section => {
 });
 </script>
 </html>
+
 
 
 
